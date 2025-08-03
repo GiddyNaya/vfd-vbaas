@@ -11,7 +11,7 @@ Thank you for your interest in contributing to the VBaaS Python SDK! This guide 
 ### Local Development
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/vbaas-python-sdk.git
+git clone https://github.com/GiddyNaya/vfd-vbaas.git
 cd vbaas-python-sdk
 
 # Install in development mode

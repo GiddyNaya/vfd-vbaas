@@ -3,8 +3,6 @@
 [![PyPI version](https://badge.fury.io/py/vbaas-python-sdk.svg)](https://badge.fury.io/py/vbaas-python-sdk)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://github.com/example/vbaas-python-sdk/workflows/Test/badge.svg)](https://github.com/example/vbaas-python-sdk/actions)
-[![Lint](https://github.com/example/vbaas-python-sdk/workflows/Lint/badge.svg)](https://github.com/example/vbaas-python-sdk/actions)
 
 An unofficial Python SDK for [VFD Bank as a Service (VBaaS) API](https://vbaas-docs.vfdtech.ng), providing easy integration with VBaaS services including bills payment functionality.
 
@@ -25,7 +23,7 @@ pip install vbaas-python-sdk
 Or install from source:
 
 ```bash
-git clone https://github.com/example/vbaas-python-sdk.git
+git clone https://github.com/GiddyNaya/vfd-vbaas.git
 cd vbaas-python-sdk
 pip install -e .
 ```
