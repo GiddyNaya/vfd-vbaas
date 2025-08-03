@@ -14,7 +14,9 @@ def main():
     # Initialize client with credentials
     # In production, use environment variables or secure credential storage
     consumer_key = os.getenv("VBAAS_CONSUMER_KEY", "your_consumer_key_here")
-    consumer_secret = os.getenv("VBAAS_CONSUMER_SECRET", "your_consumer_secret_here")
+    consumer_secret = os.getenv(
+        "VBAAS_CONSUMER_SECRET", "your_consumer_secret_here"
+    )
 
     try:
         # Create client instance
@@ -48,11 +50,16 @@ def main():
                 biller = billers[0]
                 print(f"\n3. Getting items for biller '{biller.name}'...")
                 items = client.get_biller_items(
-                    biller_id=biller.id, division_id=biller.division, product_id=biller.product
+                    biller_id=biller.id,
+                    division_id=biller.division,
+                    product_id=biller.product,
                 )
                 print(f"Found {len(items)} items:")
                 for item in items[:2]:  # Show first 2
-                    print(f"  - {item.payment_item_name} (Fixed: {item.is_amount_fixed})")
+                    print(
+                        f"  - {item.payment_item_name} "
+                        f"(Fixed: {item.is_amount_fixed})"
+                    )
 
         # 4. Example payment (commented out to avoid accidental charges)
         print("\n4. Payment example (commented out):")

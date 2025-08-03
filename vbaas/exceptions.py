@@ -32,7 +32,9 @@ class AuthenticationError(VBaaSError):
 class APIError(VBaaSError):
     """Raised when API request fails."""
 
-    def __init__(self, message: str, status_code: Optional[str] = None, **kwargs):
+    def __init__(
+        self, message: str, status_code: Optional[str] = None, **kwargs
+    ):
         super().__init__(message, status_code, **kwargs)
 
 

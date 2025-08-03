@@ -43,7 +43,13 @@ class TestModels:
 
     def test_biller_without_convenience_fee(self):
         """Test Biller model without convenience fee."""
-        biller = Biller(id="airng", name="AIRTEL", division="C", product="423", category="Airtime")
+        biller = Biller(
+            id="airng",
+            name="AIRTEL",
+            division="C",
+            product="423",
+            category="Airtime",
+        )
         assert biller.convenience_fee is None
 
     def test_biller_item(self):
@@ -151,7 +157,9 @@ class TestModels:
 
     def test_api_response(self):
         """Test APIResponse model."""
-        response = APIResponse(status="00", message="Success", data={"result": "data"})
+        response = APIResponse(
+            status="00", message="Success", data={"result": "data"}
+        )
         assert response.status == "00"
         assert response.message == "Success"
         assert response.data == {"result": "data"}

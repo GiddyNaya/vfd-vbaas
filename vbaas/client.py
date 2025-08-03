@@ -36,15 +36,21 @@ class VBaaSClient:
     # Environment URLs
     ENVIRONMENTS = {
         "test": {
-            "auth_base_url": ("https://api-devapps.vfdbank.systems/vfd-tech/baas-portal/v1.1"),
+            "auth_base_url": (
+                "https://api-devapps.vfdbank.systems/vfd-tech/baas-portal/v1.1"
+            ),
             "bills_base_url": (
-                "https://api-devapps.vfdbank.systems/vtech-bills/api/v2/billspaymentstore"
+                "https://api-devapps.vfdbank.systems/vtech-bills/api/v2/"
+                "billspaymentstore"
             ),
         },
         "live": {
-            "auth_base_url": ("https://api-apps.vfdbank.systems/vfd-tech/baas-portal/v1.1"),
+            "auth_base_url": (
+                "https://api-apps.vfdbank.systems/vfd-tech/baas-portal/v1.1"
+            ),
             "bills_base_url": (
-                "https://api-apps.vfdbank.systems/vtech-bills/api/v2/billspaymentstore"
+                "https://api-apps.vfdbank.systems/vtech-bills/api/v2/"
+                "billspaymentstore"
             ),
         },
     }
@@ -70,7 +76,8 @@ class VBaaSClient:
 
         if environment not in self.ENVIRONMENTS:
             raise ConfigurationError(
-                f"Invalid environment: {environment}. " f"Must be 'test' or 'live'"
+                f"Invalid environment: {environment}. "
+                f"Must be 'test' or 'live'"
             )
 
         self.consumer_key = consumer_key
@@ -109,14 +116,17 @@ class VBaaSClient:
         }
 
         try:
-            response = self.session.post(url, json=payload, timeout=self.timeout)
+            response = self.session.post(
+                url, json=payload, timeout=self.timeout
+            )
             response.raise_for_status()
 
             data = response.json()
 
             if data.get("status") != "00":
                 raise AuthenticationError(
-                    f"Authentication failed: {data.get('message', 'Unknown error')}"
+                    f"Authentication failed: "
+                    f"{data.get('message', 'Unknown error')}"
                 )
 
             token_data = data.get("data", {})
@@ -125,7 +135,8 @@ class VBaaSClient:
             if not self._access_token:
                 raise AuthenticationError("No access token received")
 
-            # Set expiration time (use expires_in if available, otherwise set far future)
+            # Set expiration time (use expires_in if available,
+            # otherwise set far future)
             expires_in = token_data.get("expires_in", 9223372036854775807)
             self._token_expires_at = time.time() + expires_in
 
@@ -157,7 +168,11 @@ class VBaaSClient:
                 )
             elif method.upper() == "POST":
                 response = self.session.post(
-                    url, json=data, params=params, headers=headers, timeout=self.timeout
+                    url,
+                    json=data,
+                    params=params,
+                    headers=headers,
+                    timeout=self.timeout,
                 )
             else:
                 raise ValueError(f"Unsupported HTTP method: {method}")
@@ -193,7 +208,10 @@ class VBaaSClient:
         self._validate_response(response)
 
         categories_data = response.get("data", [])
-        return [BillerCategory(category=item["category"]) for item in categories_data]
+        return [
+            BillerCategory(category=item["category"])
+            for item in categories_data
+        ]
 
     def get_billers(self, category_name: str) -> List[Biller]:
         """
@@ -243,7 +261,9 @@ class VBaaSClient:
             List of biller items
         """
         if not all([biller_id, division_id, product_id]):
-            raise ValidationError("Biller ID, division ID, and product ID are required")
+            raise ValidationError(
+                "Biller ID, division ID, and product ID are required"
+            )
 
         params = {
             "billerId": biller_id,
@@ -303,7 +323,9 @@ class VBaaSClient:
             True if validation successful
         """
         if not all([division_id, payment_item, customer_id, biller_id]):
-            raise ValidationError("All parameters are required for customer validation")
+            raise ValidationError(
+                "All parameters are required for customer validation"
+            )
 
         params = {
             "divisionId": division_id,
@@ -312,7 +334,9 @@ class VBaaSClient:
             "billerId": biller_id,
         }
 
-        response = self._make_request("GET", "/customervalidate", params=params)
+        response = self._make_request(
+            "GET", "/customervalidate", params=params
+        )
         self._validate_response(response)
 
         return True
@@ -374,7 +398,9 @@ class VBaaSClient:
         # Payment can return status "00" for success or "99" for failure
         status = response.get("status")
         message = response.get("message", "Unknown error")
-        reference_returned = response.get("data", {}).get("reference", reference)
+        reference_returned = response.get("data", {}).get(
+            "reference", reference
+        )
 
         return PaymentResponse(
             status=status,
@@ -397,7 +423,9 @@ class VBaaSClient:
             raise ValidationError("Transaction ID is required")
 
         params = {"transactionId": transaction_id}
-        response = self._make_request("GET", "/transactionStatus", params=params)
+        response = self._make_request(
+            "GET", "/transactionStatus", params=params
+        )
 
         # Handle different response statuses
         status = response.get("status")

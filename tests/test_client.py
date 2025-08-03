@@ -27,12 +27,16 @@ class TestVBaaSClient:
         self.consumer_key = "test_key"
         self.consumer_secret = "test_secret"
         self.client = VBaaSClient(
-            consumer_key=self.consumer_key, consumer_secret=self.consumer_secret, environment="test"
+            consumer_key=self.consumer_key,
+            consumer_secret=self.consumer_secret,
+            environment="test",
         )
 
     def test_init_valid_config(self):
         """Test client initialization with valid configuration."""
-        client = VBaaSClient(consumer_key="key", consumer_secret="secret", environment="test")
+        client = VBaaSClient(
+            consumer_key="key", consumer_secret="secret", environment="test"
+        )
         assert client.consumer_key == "key"
         assert client.consumer_secret == "secret"
         assert client.environment == "test"
@@ -40,7 +44,11 @@ class TestVBaaSClient:
     def test_init_invalid_environment(self):
         """Test client initialization with invalid environment."""
         with pytest.raises(ConfigurationError):
-            VBaaSClient(consumer_key="key", consumer_secret="secret", environment="invalid")
+            VBaaSClient(
+                consumer_key="key",
+                consumer_secret="secret",
+                environment="invalid",
+            )
 
     def test_init_missing_credentials(self):
         """Test client initialization with missing credentials."""
@@ -75,7 +83,10 @@ class TestVBaaSClient:
     def test_get_access_token_failure(self, mock_post):
         """Test token retrieval failure."""
         mock_response = Mock()
-        mock_response.json.return_value = {"status": "99", "message": "Authentication failed"}
+        mock_response.json.return_value = {
+            "status": "99",
+            "message": "Authentication failed",
+        }
         mock_response.raise_for_status.return_value = None
         mock_post.return_value = mock_response
 
@@ -99,7 +110,11 @@ class TestVBaaSClient:
         mock_response.json.return_value = {
             "status": "00",
             "message": "Successfully Returned Biller Category",
-            "data": [{"category": "Airtime"}, {"category": "Cable TV"}, {"category": "Data"}],
+            "data": [
+                {"category": "Airtime"},
+                {"category": "Cable TV"},
+                {"category": "Data"},
+            ],
         }
         mock_response.raise_for_status.return_value = None
         mock_get.return_value = mock_response
@@ -194,7 +209,11 @@ class TestVBaaSClient:
         mock_response.json.return_value = {
             "status": "00",
             "message": "Successful Transaction Retrieval",
-            "data": {"transactionStatus": "00", "amount": "1000", "token": "12345"},
+            "data": {
+                "transactionStatus": "00",
+                "amount": "1000",
+                "token": "12345",
+            },
         }
         mock_response.raise_for_status.return_value = None
         mock_get.return_value = mock_response
@@ -211,7 +230,10 @@ class TestVBaaSClient:
         """Test transaction status retrieval for non-existent transaction."""
         mock_token.return_value = "test_token"
         mock_response = Mock()
-        mock_response.json.return_value = {"status": "108", "message": "No Transaction!"}
+        mock_response.json.return_value = {
+            "status": "108",
+            "message": "No Transaction!",
+        }
         mock_response.raise_for_status.return_value = None
         mock_get.return_value = mock_response
 
@@ -221,7 +243,11 @@ class TestVBaaSClient:
 
     def test_validate_response_success(self):
         """Test response validation with successful response."""
-        response = {"status": "00", "message": "Success", "data": {"key": "value"}}
+        response = {
+            "status": "00",
+            "message": "Success",
+            "data": {"key": "value"},
+        }
 
         validated = self.client._validate_response(response)
         assert validated == response

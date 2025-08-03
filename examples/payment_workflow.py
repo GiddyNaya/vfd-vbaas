@@ -20,15 +20,22 @@ def generate_unique_reference():
 def main():
     # Initialize client
     consumer_key = os.getenv("VBAAS_CONSUMER_KEY", "your_consumer_key_here")
-    consumer_secret = os.getenv("VBAAS_CONSUMER_SECRET", "your_consumer_secret_here")
+    consumer_secret = os.getenv(
+        "VBAAS_CONSUMER_SECRET", "your_consumer_secret_here"
+    )
 
     if consumer_key == "your_consumer_key_here":
-        print("Please set VBAAS_CONSUMER_KEY and VBAAS_CONSUMER_SECRET environment variables")
+        print(
+            "Please set VBAAS_CONSUMER_KEY and "
+            "VBAAS_CONSUMER_SECRET environment variables"
+        )
         return
 
     try:
         client = VBaaSClient(
-            consumer_key=consumer_key, consumer_secret=consumer_secret, environment="test"
+            consumer_key=consumer_key,
+            consumer_secret=consumer_secret,
+            environment="test",
         )
 
         print("VBaaS Payment Workflow Example")
@@ -91,7 +98,9 @@ def main():
                 customer_id=customer_id,
                 biller_id=selected_biller.id,
             )
-            print(f"Customer validation: {'Success' if is_valid else 'Failed'}")
+            print(
+                f"Customer validation: {'Success' if is_valid else 'Failed'}"
+            )
 
         except VBaaSError as e:
             print(f"Customer validation failed: {e.message}")
@@ -128,7 +137,9 @@ def main():
             # Step 6: Check transaction status
             if payment_result.status == "00":
                 print("\\nChecking transaction status...")
-                status = client.get_transaction_status(payment_result.reference)
+                status = client.get_transaction_status(
+                    payment_result.reference
+                )
                 print(f"Transaction Status: {status.transaction_status}")
                 print(f"Amount: {status.amount}")
 

@@ -71,7 +71,11 @@ def main():
                 print(f"   Found {len(billers)} billers:")
 
                 for biller in billers[:3]:  # Show first 3 billers
-                    fee_info = f" (Fee: {biller.convenience_fee})" if biller.convenience_fee else ""
+                    fee_info = (
+                        f" (Fee: {biller.convenience_fee})"
+                        if biller.convenience_fee
+                        else ""
+                    )
                     print(f"   • {biller.name} (ID: {biller.id}){fee_info}")
 
                 # Get items for the first biller
@@ -85,17 +89,27 @@ def main():
                             product_id=first_biller.product,
                         )
                         for item in items[:2]:  # Show first 2 items
-                            fixed = "Fixed" if item.is_amount_fixed == "true" else "Variable"
-                            print(f"     - {item.payment_item_name} ({fixed} amount)")
+                            fixed = (
+                                "Fixed"
+                                if item.is_amount_fixed == "true"
+                                else "Variable"
+                            )
+                            print(
+                                f"     - {item.payment_item_name} ({fixed} amount)"
+                            )
                     except VBaaSError as e:
                         print(f"     ⚠️  Could not fetch items: {e.message}")
 
             except VBaaSError as e:
-                print(f"   ⚠️  Error fetching billers for {category.category}: {e.message}")
+                print(
+                    f"   ⚠️  Error fetching billers for {category.category}: {e.message}"
+                )
 
         # Demonstrate customer validation
         print_section("4. Customer Validation Example")
-        print("Demonstrating customer validation (required for utilities/cable TV)...")
+        print(
+            "Demonstrating customer validation (required for utilities/cable TV)..."
+        )
 
         # Find a utility biller for demonstration
         try:
@@ -103,7 +117,9 @@ def main():
             if utility_billers:
                 biller = utility_billers[0]
                 items = client.get_biller_items(
-                    biller_id=biller.id, division_id=biller.division, product_id=biller.product
+                    biller_id=biller.id,
+                    division_id=biller.division,
+                    product_id=biller.product,
                 )
                 if items:
                     item = items[0]
@@ -117,7 +133,9 @@ def main():
                             customer_id="1234567890",
                             biller_id=biller.id,
                         )
-                        print(f"   ✅ Validation result: {'Success' if is_valid else 'Failed'}")
+                        print(
+                            f"   ✅ Validation result: {'Success' if is_valid else 'Failed'}"
+                        )
                     except VBaaSError as e:
                         print(f"   ⚠️  Validation failed: {e.message}")
         except VBaaSError as e:
@@ -143,7 +161,9 @@ def main():
 
         print("\n💡 To make actual payments, use:")
         print("   result = client.pay_bill(**payment_params)")
-        print("   print(f'Status: {result.status}, Message: {result.message}')")
+        print(
+            "   print(f'Status: {result.status}, Message: {result.message}')"
+        )
 
         # Transaction status example
         print_section("6. Transaction Status Check Example")
@@ -167,7 +187,9 @@ def main():
         print("📋 Recommended practices when using this SDK:")
         print("   1. Always use environment variables for credentials")
         print("   2. Use try-catch blocks for proper error handling")
-        print("   3. Validate customer info before making payments (utilities/cable)")
+        print(
+            "   3. Validate customer info before making payments (utilities/cable)"
+        )
         print("   4. Use unique references for each payment")
         print("   5. Check transaction status after payments")
         print("   6. Use test environment for development")
@@ -175,7 +197,9 @@ def main():
 
         print_header("Demo Completed Successfully! 🎉")
         print("The VBaaS Python SDK is ready for use.")
-        print("Check the examples/ directory for more detailed usage examples.")
+        print(
+            "Check the examples/ directory for more detailed usage examples."
+        )
 
     except VBaaSError as e:
         print(f"\n❌ VBaaS Error: {e.message}")
