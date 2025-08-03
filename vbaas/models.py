@@ -4,19 +4,21 @@ VBaaS SDK Models
 Data models for VBaaS API responses and requests.
 """
 
-from typing import Optional, List, Dict, Any
 from dataclasses import dataclass
+from typing import Any, Dict, Optional
 
 
 @dataclass
 class BillerCategory:
     """Represents a biller category."""
+
     category: str
 
 
 @dataclass
 class Biller:
     """Represents a biller."""
+
     id: str
     name: str
     division: str
@@ -28,6 +30,7 @@ class Biller:
 @dataclass
 class BillerItem:
     """Represents a biller item."""
+
     id: str
     biller_id: str
     amount: str
@@ -53,6 +56,7 @@ class BillerItem:
 @dataclass
 class PaymentRequest:
     """Represents a payment request."""
+
     customer_id: str
     amount: str
     division: str
@@ -66,6 +70,7 @@ class PaymentRequest:
 @dataclass
 class PaymentResponse:
     """Represents a payment response."""
+
     status: str
     message: str
     reference: str
@@ -75,6 +80,7 @@ class PaymentResponse:
 @dataclass
 class TransactionStatus:
     """Represents transaction status."""
+
     status: str
     message: str
     transaction_status: Optional[str] = None
@@ -85,6 +91,7 @@ class TransactionStatus:
 @dataclass
 class AuthToken:
     """Represents an authentication token."""
+
     access_token: str
     scope: str
     token_type: str
@@ -94,6 +101,7 @@ class AuthToken:
 @dataclass
 class APIResponse:
     """Generic API response wrapper."""
+
     status: str
     message: str
     data: Optional[Dict[str, Any]] = None

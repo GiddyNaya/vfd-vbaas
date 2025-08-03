@@ -5,10 +5,10 @@ A Python SDK for VFD Bank as a Service (VBaaS) API.
 """
 
 from .client import VBaaSClient
-from .exceptions import VBaaSError, AuthenticationError, APIError
+from .exceptions import APIError, AuthenticationError, VBaaSError
 from .models import (
-    BillerCategory,
     Biller,
+    BillerCategory,
     BillerItem,
     PaymentRequest,
     PaymentResponse,
@@ -22,7 +22,7 @@ __email__ = "support@example.com"
 __all__ = [
     "VBaaSClient",
     "VBaaSError",
-    "AuthenticationError", 
+    "AuthenticationError",
     "APIError",
     "BillerCategory",
     "Biller",
