@@ -5,13 +5,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="vbaas-python-sdk",
-    version="1.0.0",
+    version="1.0.1",
     author="VBaaS SDK",
     author_email="support@example.com",
     description="Python SDK for VFD Bank as a Service (VBaaS) API",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/example/vbaas-python-sdk",
+    url="https://github.com/GiddyNaya/vfd-vbaas",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
