@@ -66,6 +66,24 @@ status = client.get_transaction_status("your-transaction-id")
 print(status)
 ```
 
+## Examples
+
+For more detailed examples, check out the example files in the repository:
+
+- **[Basic Usage Example](examples/basic_usage.py)**: Complete example showing authentication, biller queries, and payment workflow
+- **[Payment Workflow Example](examples/payment_workflow.py)**: Advanced payment processing with error handling
+
+### Running Examples
+
+```bash
+# Set your credentials as environment variables
+export VBAAS_CONSUMER_KEY="your_consumer_key"
+export VBAAS_CONSUMER_SECRET="your_consumer_secret"
+
+# Run the basic usage example
+python examples/basic_usage.py
+```
+
 ## API Reference
 
 ### VBaaSClient
