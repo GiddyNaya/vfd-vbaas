@@ -178,7 +178,7 @@ class VBaaSClient:
                 raise ValueError(f"Unsupported HTTP method: {method}")
 
             response.raise_for_status()
-            return response.json()
+            return response.json()  # type: ignore[no-any-return]
 
         except requests.RequestException as e:
             raise NetworkError(f"Request failed: {str(e)}")
@@ -403,7 +403,7 @@ class VBaaSClient:
         )
 
         return PaymentResponse(
-            status=status,
+            status=str(status) if status is not None else "99",
             message=message,
             reference=reference_returned,
             data=response.get("data"),
@@ -433,7 +433,7 @@ class VBaaSClient:
 
         if status == "108":  # No transaction found
             return TransactionStatus(
-                status=status,
+                status=str(status) if status is not None else "99",
                 message=message,
             )
 
@@ -442,14 +442,14 @@ class VBaaSClient:
 
         data = response.get("data", {})
         return TransactionStatus(
-            status=status,
+            status=str(status) if status is not None else "99",
             message=message,
             transaction_status=data.get("transactionStatus"),
             amount=data.get("amount"),
             token=data.get("token"),
         )
 
-    def close(self):
+    def close(self) -> None:
         """Close the HTTP session."""
         if hasattr(self, "session"):
             self.session.close()

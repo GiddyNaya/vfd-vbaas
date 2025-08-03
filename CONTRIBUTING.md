@@ -5,7 +5,7 @@ Thank you for your interest in contributing to the VBaaS Python SDK! This guide 
 ## Development Setup
 
 ### Prerequisites
-- Python 3.7 or higher
+- Python 3.9 or higher
 - Git
 
 ### Local Development
