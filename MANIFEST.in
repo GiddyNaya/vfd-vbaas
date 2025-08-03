@@ -1,0 +1,10 @@
+include README.md
+include LICENSE
+include requirements.txt
+include requirements-dev.txt
+include pytest.ini
+recursive-include vbaas *.py
+recursive-include examples *.py
+recursive-include tests *.py
+global-exclude *.pyc
+global-exclude __pycache__

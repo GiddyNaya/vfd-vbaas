@@ -1,0 +1,11 @@
+-r requirements.txt
+
+# Development dependencies
+pytest>=6.0
+pytest-cov>=2.0
+pytest-mock>=3.0
+black>=21.0
+flake8>=3.8
+mypy>=0.910
+isort>=5.0
+pre-commit>=2.0
