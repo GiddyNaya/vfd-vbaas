@@ -4,8 +4,35 @@ VBaaS SDK Models
 Data models for VBaaS API responses and requests.
 """
 
-from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from dataclasses import dataclass, asdict
+from typing import Any, Dict, List, Optional, Union
+
+
+def serialize_models(
+    models: Union[List[Any], Any],
+) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
+    """
+    Serialize model objects or lists of model objects to dictionaries.
+
+    Args:
+        models: Single model object or list of model objects
+
+    Returns:
+        Dictionary or list of dictionaries ready for JSON serialization
+    """
+    if isinstance(models, list):
+        result = []
+        for model in models:
+            if hasattr(model, "to_dict"):
+                result.append(model.to_dict())
+            else:
+                result.append(model)
+        return result
+    else:
+        if hasattr(models, "to_dict"):
+            return models.to_dict()  # type: ignore[no-any-return]
+        else:
+            return models  # type: ignore[no-any-return]
 
 
 @dataclass
@@ -13,6 +40,10 @@ class BillerCategory:
     """Represents a biller category."""
 
     category: str
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return asdict(self)
 
 
 @dataclass
@@ -25,6 +56,10 @@ class Biller:
     product: str
     category: str
     convenience_fee: Optional[str] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return asdict(self)
 
 
 @dataclass
@@ -52,6 +87,10 @@ class BillerItem:
     category_id: str
     created_date: str
 
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return asdict(self)
+
 
 @dataclass
 class PaymentRequest:
@@ -66,6 +105,10 @@ class PaymentRequest:
     reference: str
     phone_number: str
 
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return asdict(self)
+
 
 @dataclass
 class PaymentResponse:
@@ -75,6 +118,10 @@ class PaymentResponse:
     message: str
     reference: str
     data: Optional[Dict[str, Any]] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return asdict(self)
 
 
 @dataclass
@@ -87,6 +134,10 @@ class TransactionStatus:
     amount: Optional[str] = None
     token: Optional[str] = None
 
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return asdict(self)
+
 
 @dataclass
 class AuthToken:
@@ -97,6 +148,10 @@ class AuthToken:
     token_type: str
     expires_in: int
 
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return asdict(self)
+
 
 @dataclass
 class APIResponse:
@@ -105,3 +160,7 @@ class APIResponse:
     status: str
     message: str
     data: Optional[Dict[str, Any]] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return asdict(self)

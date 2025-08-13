@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="vbaas-python-sdk",
-    version="1.0.2",
+    version="1.0.3",
     author="VBaaS SDK",
     author_email="ogbonnagideon5@gmail.com",
     description="Python SDK for VFD Bank as a Service (VBaaS) API",

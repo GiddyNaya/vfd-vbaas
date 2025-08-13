@@ -213,6 +213,16 @@ class VBaaSClient:
             for item in categories_data
         ]
 
+    def get_biller_categories_dict(self) -> List[Dict[str, Any]]:
+        """
+        Get all available biller categories as dictionaries.
+
+        Returns:
+            List of biller category dictionaries ready for JSON serialization
+        """
+        categories = self.get_biller_categories()
+        return [category.to_dict() for category in categories]
+
     def get_billers(self, category_name: str) -> List[Biller]:
         """
         Get billers for a specific category.
@@ -245,6 +255,19 @@ class VBaaSClient:
             billers.append(biller)
 
         return billers
+
+    def get_billers_dict(self, category_name: str) -> List[Dict[str, Any]]:
+        """
+        Get billers for a specific category as dictionaries.
+
+        Args:
+            category_name: Name of the category
+
+        Returns:
+            List of biller dictionaries ready for JSON serialization
+        """
+        billers = self.get_billers(category_name)
+        return [biller.to_dict() for biller in billers]
 
     def get_biller_items(
         self, biller_id: str, division_id: str, product_id: str
@@ -302,6 +325,23 @@ class VBaaSClient:
             biller_items.append(biller_item)
 
         return biller_items
+
+    def get_biller_items_dict(
+        self, biller_id: str, division_id: str, product_id: str
+    ) -> List[Dict[str, Any]]:
+        """
+        Get items for a specific biller as dictionaries.
+
+        Args:
+            biller_id: ID of the biller
+            division_id: Division ID
+            product_id: Product ID
+
+        Returns:
+            List of biller item dictionaries ready for JSON serialization
+        """
+        items = self.get_biller_items(biller_id, division_id, product_id)
+        return [item.to_dict() for item in items]
 
     def validate_customer(
         self,
@@ -409,6 +449,45 @@ class VBaaSClient:
             data=response.get("data"),
         )
 
+    def pay_bill_dict(
+        self,
+        customer_id: str,
+        amount: str,
+        division: str,
+        payment_item: str,
+        product_id: str,
+        biller_id: str,
+        reference: str,
+        phone_number: str,
+    ) -> Dict[str, Any]:
+        """
+        Make a bill payment and return dictionary.
+
+        Args:
+            customer_id: Customer ID
+            amount: Payment amount
+            division: Division
+            payment_item: Payment item
+            product_id: Product ID
+            biller_id: Biller ID
+            reference: Unique payment reference
+            phone_number: Customer phone number
+
+        Returns:
+            Payment response dictionary ready for JSON serialization
+        """
+        payment_response = self.pay_bill(
+            customer_id,
+            amount,
+            division,
+            payment_item,
+            product_id,
+            biller_id,
+            reference,
+            phone_number,
+        )
+        return payment_response.to_dict()
+
     def get_transaction_status(self, transaction_id: str) -> TransactionStatus:
         """
         Get transaction status.
@@ -448,6 +527,21 @@ class VBaaSClient:
             amount=data.get("amount"),
             token=data.get("token"),
         )
+
+    def get_transaction_status_dict(
+        self, transaction_id: str
+    ) -> Dict[str, Any]:
+        """
+        Get transaction status as dictionary.
+
+        Args:
+            transaction_id: Transaction ID to check
+
+        Returns:
+            Transaction status dictionary ready for JSON serialization
+        """
+        transaction_status = self.get_transaction_status(transaction_id)
+        return transaction_status.to_dict()
 
     def close(self) -> None:
         """Close the HTTP session."""
