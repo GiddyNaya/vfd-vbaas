@@ -159,7 +159,7 @@ class VBaaSClient:
         headers = {}
         if require_auth:
             token = self._get_access_token()
-            headers["Authorization"] = f"Bearer {token}"
+            headers["AccessToken"] = token
 
         try:
             if method.upper() == "GET":

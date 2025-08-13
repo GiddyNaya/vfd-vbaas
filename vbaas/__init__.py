@@ -17,7 +17,7 @@ from .models import (
 
 __version__ = "1.0.0"
 __author__ = "VBaaS SDK"
-__email__ = "support@example.com"
+__email__ = "ogbonnagideon5@gmail.com"
 
 __all__ = [
     "VBaaSClient",
