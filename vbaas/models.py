@@ -4,7 +4,7 @@ VBaaS SDK Models
 Data models for VBaaS API responses and requests.
 """
 
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Optional, Union
 
 
