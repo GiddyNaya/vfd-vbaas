@@ -136,3 +136,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Support
 
 For support and questions, please contact [info@vfdtech.ng](mailto:info@vfdtech.ng) or visit the [documentation](https://vbaas-docs.vfdtech.ng).
+
+
+<!-- Security scan triggered at 2025-09-01 23:08:44 -->
